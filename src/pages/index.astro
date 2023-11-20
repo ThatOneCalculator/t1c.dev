@@ -1,0 +1,69 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Logo from "../components/Logo.astro";
+import { Image } from "astro:assets";
+import { Icon } from "astro-icon/components";
+import img from "../images/04-4K.png";
+---
+
+<Layout title="Kainoa's Portfolio">
+  <main>
+    <div class="header">
+      <h1>Hi, I'm</h1>
+      <Logo />
+    </div>
+    <div class="textBlock">
+      <p style="font-size: 2rem">
+        I make cool stuff on the Internet, I guess. Sometimes I write about it
+        if I remember to.
+      </p>
+      <p>
+        You should check out one of my projects, <a
+          href="https://joinfirefish.org">Firefish</a
+        >!
+      </p>
+      <p>
+        This is a pretty temporary site, here's some links where you can find
+        me:
+      </p>
+    </div>
+    <div class="links">
+      <a href="https://firefish.social/@kainoa" aria-label="Firefish">
+        <div class="link">
+          <Icon name="firefish" />
+        </div>
+      </a>
+      <a href="https://firefish.social/@kainoa" aria-label="Gitlab">
+        <div class="link">
+          <Icon name="ph:gitlab-logo-simple-bold" />
+        </div>
+      </a>
+      <a href="https://firefish.social/@kainoa" aria-label="Github">
+        <div class="link">
+          <Icon name="ph:github-logo-bold" />
+        </div>
+      </a>
+      <a href="mailto:kainoa@t1c.dev" aria-label="Email">
+        <div class="link">
+          <Icon name="ph:envelope-open-bold" />
+        </div>
+      </a>
+      <a href="https://matrix.to/#/@t1c:matrix.fedibird.com" aria-label="Matrix">
+        <div class="link">
+          <Icon name="matrix" />
+        </div>
+      </a>
+    </div>
+    <div class="cover">
+      <Image draggable="false" alt="" src={img} quality="high" />
+    </div>
+  </main>
+</Layout>
+
+<style lang="stylus">
+main
+    display flex
+    flex-direction column
+    align-items center
+    justify-content center
+</style>

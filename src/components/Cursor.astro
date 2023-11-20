@@ -1,0 +1,160 @@
+---
+import { Icon } from "astro-icon/components";
+---
+
+<div id="invertedCursor" transition:persist>
+  <Icon name="ph:hand-pointing-bold" class="cursorIcon" id="pointCursor" />
+  <Icon name="ph:hand-fist-bold" class="cursorIcon" id="noCursor" />
+  <Icon name="ph:cursor-text-bold" class="cursorIcon" id="textCursor" />
+  <Icon name="ph:link-bold" class="cursorIcon" id="linkCursor" />
+</div>
+
+<script>
+  const invertedCursor = document.getElementById("invertedCursor")!;
+  const pointCursor = document.getElementById("pointCursor")!;
+  const noCursor = document.getElementById("noCursor")!;
+  const textCursor = document.getElementById("textCursor")!;
+  const linkCursor = document.getElementById("linkCursor")!;
+
+  let hoverScale = 1;
+  let lastX = 0;
+  let lastY = 0;
+  let lastTime = Date.now();
+
+  const animateCursor = (e: MouseEvent, hoverScale: number) => {
+    const x = e.clientX - invertedCursor.offsetWidth / 2;
+    const y = e.clientY - invertedCursor.offsetHeight / 2;
+
+    const currentTime = Date.now();
+    const timeDelta = currentTime - lastTime;
+    const speedX = Math.abs(x - lastX) / timeDelta;
+    const speedScaleX = 1 + speedX * 0.1;
+    const speedY = Math.abs(y - lastY) / timeDelta;
+    const speedScaleY = 1 + speedY * 0.1;
+    const scaleX = hoverScale * speedScaleX;
+    const scaleY = hoverScale * speedScaleY;
+
+    update(x, y, scaleX, scaleY);
+    lastX = x;
+    lastY = y;
+    lastTime = currentTime;
+  };
+
+  const update = (x: number, y: number, scaleX: number, scaleY: number) => {
+    const transform = `translate(${x}px, ${y}px) scale(${scaleX}, ${scaleY})`;
+
+    invertedCursor.animate(
+      { transform },
+      {
+        duration: 800,
+        fill: "forwards",
+      }
+    );
+  };
+
+  const hoverCursor = (hS: number, icon?: string) => {
+    let cursorIcon = pointCursor;
+    if (icon === "cursor") cursorIcon = noCursor;
+    if (icon === "text") cursorIcon = textCursor;
+    if (icon === "link") cursorIcon = linkCursor;
+    hoverScale = hS;
+    cursorIcon.style.opacity = hoverScale === 1 ? "0" : "1";
+  };
+
+  const loadCursor = () => {
+    if ("ontouchstart" in window || navigator.maxTouchPoints > 0) {
+      return;
+    }
+    invertedCursor.style.display = "unset";
+    window.onmousemove = (e: MouseEvent) => {
+      animateCursor(e, hoverScale);
+    };
+    [".hoverable", "button", "select", "label", "summary"].forEach(
+      (element) => {
+        document.querySelectorAll(element).forEach((h) => {
+          // @ts-ignore
+          h.style.cursor = "none";
+          h.addEventListener("mouseenter", () => hoverCursor(1.6));
+          h.addEventListener("mouseleave", () => hoverCursor(1));
+          document.addEventListener("astro:after-swap", () => hoverCursor(1));
+        });
+      }
+    );
+    invertedCursor.animate(
+      {
+        opacity: [0, 1],
+      },
+      {
+        duration: 800,
+        fill: "forwards",
+      }
+    );
+    document.querySelectorAll("input").forEach((h) => {
+      // @ts-ignore
+      h.style.cursor = "none";
+      h.addEventListener("mouseenter", () => hoverCursor(1.6, "text"));
+      h.addEventListener("mouseleave", () => hoverCursor(1, "text"));
+    });
+    document.querySelectorAll("a[href]").forEach((h) => {
+      // @ts-ignore
+      h.style.cursor = "none";
+      h.addEventListener("mouseenter", () => hoverCursor(1.6, "link"));
+      h.addEventListener("mouseleave", () => hoverCursor(1, "link"));
+    });
+    document.addEventListener("mousedown", (e: MouseEvent) => {
+      hoverCursor(0.8, "cursor");
+      animateCursor(e, hoverScale);
+    });
+    document.addEventListener("mouseup", (e: MouseEvent) => {
+      hoverCursor(1, "cursor");
+      animateCursor(e, hoverScale);
+    });
+    document.addEventListener("mouseout", (e: MouseEvent) => {
+      invertedCursor.animate(
+        {
+          transform: `translate(${e.clientX}px, ${e.clientY}px) scale(0)`,
+        },
+        {
+          duration: 200,
+          fill: "forwards",
+        }
+      );
+    });
+    document.addEventListener("mouseover", (e: MouseEvent) => {
+      hoverCursor(1);
+      animateCursor(e, hoverScale);
+    });
+  };
+  document.addEventListener("astro:page-load", loadCursor);
+</script>
+
+<style lang="stylus">
+    #invertedCursor
+        display none
+        opacity 0
+        height 3rem
+        width 3rem
+        border-radius 50%
+        mix-blend-mode invert
+        backdrop-filter invert() blur(1px)
+        background-image url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNTAgMjUwIj48ZmlsdGVyIGlkPSJub2lzZUZpbHRlciI+PGZlVHVyYnVsZW5jZSBiYXNlRnJlcXVlbmN5PSIuNjUiIG51bU9jdGF2ZXM9IjMiIHN0aXRjaFRpbGVzPSJzdGl0Y2giIHR5cGU9ImZyYWN0YWxOb2lzZSIvPjwvZmlsdGVyPjxyZWN0IHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbHRlcj0idXJsKCNub2lzZUZpbHRlcikiLz48L3N2Zz4=")
+        position fixed
+        left 0px
+        top 0px
+        z-index 99
+        pointer-events none
+        // mask radial-gradient(circle closest-side, transparent 70%, #000 70%)
+        transition all 0.5s ease
+
+    .cursorIcon
+        position fixed
+        left 50%
+        top 50%
+        transform translate(-50%, -50%)
+        color white
+        opacity 0
+        transition all 0.5s ease
+        font-size 1.2rem
+        filter invert(1)
+        mix-blend-mode difference
+</style>

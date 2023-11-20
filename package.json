@@ -1,0 +1,27 @@
+{
+  "name": "t1cdev",
+  "type": "module",
+  "version": "0.0.1",
+  "scripts": {
+    "dev": "astro dev",
+    "start": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro"
+  },
+  "dependencies": {
+    "@fontsource/atkinson-hyperlegible": "^5.0.15",
+    "@studio-freight/lenis": "^1.0.27",
+    "astro": "^3.4.0",
+    "party-js": "^2.2.0"
+  },
+  "devDependencies": {
+    "@iconify-json/ph": "^1.1.6",
+    "astro-icon": "1.0.0-next.2",
+    "sharp": "0.32.6",
+    "stylus": "^0.60.0"
+  },
+  "trustedDependencies": [
+    "sharp"
+  ]
+}

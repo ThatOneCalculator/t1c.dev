@@ -1,0 +1,71 @@
+---
+import { ViewTransitions } from "astro:transitions";
+import Cursor from "../components/Cursor.astro";
+
+import "../styles/global.styl";
+
+import "@fontsource/atkinson-hyperlegible/400.css";
+import "@fontsource/atkinson-hyperlegible/700.css";
+
+interface Props {
+  title: string;
+  description?: string;
+  image?: string;
+}
+
+const ogDescription = "Kainoa Kanter's Portfolio";
+---
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta
+      name="description"
+      content={ogDescription}>
+    <!-- <link rel="icon" href="/favicon.svg"> -->
+    <meta name="generator" content={Astro.generator}>
+    <meta name="theme-color" content="#9ccfd8">
+    <meta name="og:title" content={Astro.props.title}>
+    <meta name="og:type" content="website">
+    <meta name="og:url" content={Astro.url}>
+    <meta name="twitter:card" content="summary_large_image">
+    <meta
+      name="og:description"
+      content={ogDescription}>
+    <meta name="og:image" content="/opengraph.webp">
+    <title>{Astro.props.title}</title>
+    <ViewTransitions />
+    </script>
+
+    <script>
+      import Lenis from "@studio-freight/lenis";
+
+      const lenis = new Lenis({
+        duration: 1.6,
+        easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+        orientation: "vertical",
+        gestureOrientation: "vertical",
+        smoothWheel: true,
+        wheelMultiplier: 0.6,
+        smoothTouch: false,
+        infinite: false,
+      });
+
+      // @ts-ignore
+      function raf(time) {
+        lenis.raf(time);
+        requestAnimationFrame(raf);
+      }
+
+      requestAnimationFrame(raf);
+
+      window["lenis"] = lenis;
+    </script>
+  </head>
+  <body>
+    <Cursor />
+    <slot />
+  </body>
+</html>
