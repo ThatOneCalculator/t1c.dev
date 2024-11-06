@@ -4,6 +4,7 @@ import Logo from "../components/Logo.astro";
 import { Image } from "astro:assets";
 import { Icon } from "astro-icon/components";
 import img from "../images/04-4K.png";
+import Bluesky from "../components/Bluesky.astro";
 ---
 
 <Layout title="Kainoa's Portfolio">
@@ -15,7 +16,9 @@ import img from "../images/04-4K.png";
     <div class="textBlock">
       <p style="font-size: 2rem">
         I make cool stuff on the Internet, I guess. Sometimes I write about it
-        if I remember to.
+        if I remember to. Cofounder and CTO of <a href="https://inertia.social"
+          >Inertia</a
+        >.
       </p>
       <p>
         This is a pretty temporary site, here's some links where you can find
@@ -23,6 +26,7 @@ import img from "../images/04-4K.png";
       </p>
     </div>
     <div class="links">
+      <Bluesky />
       <a href="https://github.com/thatonecalculator" aria-label="Github">
         <div class="link">
           <Icon name="ph:github-logo-bold" />
