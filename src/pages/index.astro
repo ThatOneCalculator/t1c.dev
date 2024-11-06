@@ -5,6 +5,7 @@ import { Image } from "astro:assets";
 import { Icon } from "astro-icon/components";
 import img from "../images/04-4K.png";
 import Bluesky from "../components/Bluesky.astro";
+import Github from "../components/Github.astro";
 ---
 
 <Layout title="Kainoa's Portfolio">
@@ -14,27 +15,24 @@ import Bluesky from "../components/Bluesky.astro";
       <Logo />
     </div>
     <div class="textBlock">
-      <p style="font-size: 2rem">
-        I make cool stuff on the Internet, I guess. Sometimes I write about it
-        if I remember to. Cofounder and CTO of <a href="https://inertia.social"
+      <p style="font-size: 2rem; min-width: 60vw">
+        I make cool stuff on the Internet! Sometimes I write about it if I
+        remember to. Cofounder and CTO of <a href="https://inertia.social"
           >Inertia</a
         >.
       </p>
-      <p>
-        This is a pretty temporary site, here's some links where you can find
-        me:
-      </p>
+      <p style="min-width: 80vw">Here's some links where you can find me:</p>
     </div>
     <div class="links">
       <Bluesky />
-      <a href="https://github.com/thatonecalculator" aria-label="Github">
+      <Github />
+      <a
+        href="mailto:kainoa@t1c.dev"
+        aria-label="Email"
+        style="margin-left: 0.2em"
+      >
         <div class="link">
-          <Icon name="ph:github-logo-bold" />
-        </div>
-      </a>
-      <a href="mailto:kainoa@t1c.dev" aria-label="Email">
-        <div class="link">
-          <Icon name="ph:envelope-open-bold" />
+          <Icon name="ph:envelope-open-fill" />
         </div>
       </a>
     </div>
