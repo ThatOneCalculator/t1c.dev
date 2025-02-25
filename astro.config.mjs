@@ -14,6 +14,7 @@ export default defineConfig({
           "cursor-text-bold",
           "arrow-left-bold",
           "envelope-open-fill",
+          "telegram-logo-fill",
         ],
       },
     }),
