@@ -24,13 +24,17 @@ const ogDescription = "Kainoa Kanter's Portfolio";
     <meta name="description" content={ogDescription} />
     <!-- <link rel="icon" href="/favicon.svg"> -->
     <meta name="generator" content={Astro.generator} />
+    <link rel="icon" type="image/x-icon" href="/public/favicon.ico" />
     <meta name="theme-color" content="#9ccfd8" />
     <meta name="og:title" content={Astro.props.title} />
     <meta name="og:type" content="website" />
     <meta name="og:url" content={Astro.url} />
-    <meta name="twitter:card" content="summary_large_image" />
     <meta name="og:description" content={ogDescription} />
-    <meta name="og:image" content="/opengraph.webp" />
+    <meta name="og:image" content="/public/og.jpg" />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:image" content="/public/og.jpg" />
+    <meta name="twitter:site" content="@t1c_dev" />
+    <meta name="twitter:creator" content="@t1c_dev" />
     <title>{Astro.props.title}</title>
     <ViewTransitions />
     <!-- <script>
