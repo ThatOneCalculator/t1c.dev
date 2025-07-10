@@ -74,8 +74,18 @@
         opacity: 0;
         padding: 0;
         transform: scale(0.8);
-        will-change: opacity, padding, margin, transform;
-        transition: all 0.5s cubic-bezier(0.68, -0.6, 0.32, 1.6);
+        will-change:
+            opacity, padding, margin, transform, box-shadow, background-color;
+        transition: all 0.45s cubic-bezier(0.68, -0.6, 0.32, 1.6);
+        box-shadow: 0 0 10px rgba(255, 255, 255, 0.15);
+
+        &:hover {
+            transform: scale(1.05) translate3d(0, -15px, 10px) !important;
+            margin-bottom: 1.5em !important;
+            margin-top: 1em !important;
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.35);
+            background-color: rgba(255, 255, 255, 0.25);
+        }
 
         #now-playing {
             display: flex;
