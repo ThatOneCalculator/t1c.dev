@@ -1,56 +1,58 @@
 ---
-import Layout from "../layouts/Layout.astro";
-import Logo from "../components/Logo.astro";
 import { Image } from "astro:assets";
 import { Icon } from "astro-icon/components";
-import img from "../images/04-4K.png";
 import Bluesky from "../components/Bluesky.astro";
 import Github from "../components/Github.astro";
+import Logo from "../components/Logo.astro";
+import img from "../images/04-4K.png";
+import Layout from "../layouts/Layout.astro";
 ---
 
 <Layout title="Kainoa's Portfolio">
-  <main>
-    <div class="header">
-      <h1>Hi, I'm</h1>
-      <Logo />
-    </div>
-    <div class="textBlock">
-      <p style="font-size: 1.5rem; min-width: 60vw">
-        I make cool stuff on the Internet! Sometimes I write about it if I
-        remember to. Cofounder and CTO of
-        <a href="https://inertia.social" class="inertia">
-          <svg
-            width="30"
-            height="19.5"
-            viewBox="0 0 220 130"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-            id="g11"
-            style="stroke-linecap:round;stroke-linejoin:round;stroke:#F8F6F2;stroke-linecap:round;transform:translateY(0.1em)"
-          >
-            <path
-              d="M100.41 53.48C75.61 53.48 55.42 33.3 55.42 8.48999H32.99C32.99 25.76 39.52 41.52 50.24 53.48H0.0100098V75.91H50.22C39.52 87.84 33 103.63 33 120.9H55.43C55.43 96.1 75.61 75.91 100.42 75.91V53.48H100.41Z"
-              fill="#00F29C"></path>
-            <path
-              d="M202.63 96.5C194.13 88 189.44 76.72 189.44 64.7C189.44 58.67 190.61 52.84 192.85 47.45C195.07 42.07 198.37 37.13 202.61 32.9H202.63L219.65 15.86L203.77 0L186.77 17.02L186.75 17.04C169.19 34.55 140.67 34.55 123.15 17.02V17.04L106.11 0L90.26 15.86L107.28 32.9C124.82 50.41 124.82 78.94 107.3 96.5L90.26 113.54L106.11 129.4L123.15 112.36C131.63 103.86 142.93 99.2 154.95 99.2C166.97 99.2 178.25 103.89 186.75 112.39H186.77L203.77 129.41L219.65 113.55L202.63 96.53V96.51V96.5ZM168.34 78.08C159.59 76.33 150.24 76.33 141.52 78.08C143.29 69.24 143.29 60.09 141.5 51.24C150.36 53.03 159.49 53.03 168.34 51.26C167.47 55.63 167.02 60.12 167.02 64.69C167.02 69.26 167.47 73.71 168.34 78.08Z"
-              fill="#00F29C"></path>
-          </svg>
-          Inertia.</a>
-      </p>
-    </div>
-    <div class="links">
-      <Bluesky />
-      <Github />
-      <a
-        href='https://signal.me/#eu/QzkR9Kdn9CzJU4UWdVnNd10YmCJFMngFk7C_Txh5Ia9pbdbOgclH9aQ8gSTYSNR3"'
-        aria-label="Signal"
-        style="margin-left: 0.2em"
-      >
-        <div class="link">
-          <Icon name="simple-icons:signal" />
+    <main>
+        <div class="header">
+            <h1>Hi, I'm</h1>
+            <Logo />
         </div>
-      </a>
-      <!-- a
+        <div class="textBlock">
+            <p style="font-size: 1.5rem; min-width: 60vw">
+                I make cool stuff on the Internet! Sometimes I write about it if
+                I remember to. Cofounder and CTO of
+                <a href="https://inertia.social" class="inertia">
+                    <svg
+                        width="30"
+                        height="19.5"
+                        viewBox="0 0 220 130"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                        id="g11"
+                        style="stroke-linecap:round;stroke-linejoin:round;stroke:#F8F6F2;stroke-linecap:round;transform:translateY(0.1em)"
+                    >
+                        <path
+                            d="M100.41 53.48C75.61 53.48 55.42 33.3 55.42 8.48999H32.99C32.99 25.76 39.52 41.52 50.24 53.48H0.0100098V75.91H50.22C39.52 87.84 33 103.63 33 120.9H55.43C55.43 96.1 75.61 75.91 100.42 75.91V53.48H100.41Z"
+                            fill="#00F29C"></path>
+                        <path
+                            d="M202.63 96.5C194.13 88 189.44 76.72 189.44 64.7C189.44 58.67 190.61 52.84 192.85 47.45C195.07 42.07 198.37 37.13 202.61 32.9H202.63L219.65 15.86L203.77 0L186.77 17.02L186.75 17.04C169.19 34.55 140.67 34.55 123.15 17.02V17.04L106.11 0L90.26 15.86L107.28 32.9C124.82 50.41 124.82 78.94 107.3 96.5L90.26 113.54L106.11 129.4L123.15 112.36C131.63 103.86 142.93 99.2 154.95 99.2C166.97 99.2 178.25 103.89 186.75 112.39H186.77L203.77 129.41L219.65 113.55L202.63 96.53V96.51V96.5ZM168.34 78.08C159.59 76.33 150.24 76.33 141.52 78.08C143.29 69.24 143.29 60.09 141.5 51.24C150.36 53.03 159.49 53.03 168.34 51.26C167.47 55.63 167.02 60.12 167.02 64.69C167.02 69.26 167.47 73.71 168.34 78.08Z"
+                            fill="#00F29C"></path>
+                    </svg>
+                    Inertia.</a
+                >
+            </p>
+        </div>
+        <div class="links">
+            <Bluesky />
+            <Github />
+            <a
+                href='https://signal.me/#eu/QzkR9Kdn9CzJU4UWdVnNd10YmCJFMngFk7C_Txh5Ia9pbdbOgclH9aQ8gSTYSNR3"'
+                aria-label="Signal"
+                target="_blank"
+                style="margin-left: 0.2em"
+            >
+                <div class="link">
+                    <Icon name="simple-icons:signal" />
+                </div>
+            </a>
+            <!-- a
         href="https://t.me/kainoa_k"
         aria-label="Telegram"
         style="margin-left: 0.2em"
@@ -59,16 +61,49 @@ import Github from "../components/Github.astro";
           <Icon name="ph:telegram-logo-fill" />
         </div>
       </a>  -->
-      <a href="mailto:kainoa@t1c.dev" aria-label="Email">
-        <div class="link">
-          <Icon name="ph:envelope-open-fill" />
+            <a href="mailto:kainoa@t1c.dev" target="_blank" aria-label="Email">
+                <div class="link">
+                    <Icon name="ph:envelope-open-fill" />
+                </div>
+            </a>
+            <a
+                href="https://beta.inertia.social/@t1c"
+                target="_blank"
+                aria-label="Inertia"
+            >
+                <div class="link">
+                    <svg
+                        width="42"
+                        height="42"
+                        viewBox="0 0 220 170"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                        id="g11"
+                        style="stroke-linecap:round;stroke-linejoin:round;stroke:#F8F6F2;stroke-linecap:round;transform:translateY(0.1em)"
+                    >
+                        <path
+                            d="M100.41 53.48C75.61 53.48 55.42 33.3 55.42 8.48999H32.99C32.99 25.76 39.52 41.52 50.24 53.48H0.0100098V75.91H50.22C39.52 87.84 33 103.63 33 120.9H55.43C55.43 96.1 75.61 75.91 100.42 75.91V53.48H100.41Z"
+                            fill="currentColor"></path>
+                        <path
+                            d="M202.63 96.5C194.13 88 189.44 76.72 189.44 64.7C189.44 58.67 190.61 52.84 192.85 47.45C195.07 42.07 198.37 37.13 202.61 32.9H202.63L219.65 15.86L203.77 0L186.77 17.02L186.75 17.04C169.19 34.55 140.67 34.55 123.15 17.02V17.04L106.11 0L90.26 15.86L107.28 32.9C124.82 50.41 124.82 78.94 107.3 96.5L90.26 113.54L106.11 129.4L123.15 112.36C131.63 103.86 142.93 99.2 154.95 99.2C166.97 99.2 178.25 103.89 186.75 112.39H186.77L203.77 129.41L219.65 113.55L202.63 96.53V96.51V96.5ZM168.34 78.08C159.59 76.33 150.24 76.33 141.52 78.08C143.29 69.24 143.29 60.09 141.5 51.24C150.36 53.03 159.49 53.03 168.34 51.26C167.47 55.63 167.02 60.12 167.02 64.69C167.02 69.26 167.47 73.71 168.34 78.08Z"
+                            fill="currentColor"></path>
+                    </svg>
+                </div>
+            </a>
+            <a
+                href="https://listenbrainz.org/user/thatonecalculator/"
+                target="_blank"
+                aria-label="ListenBrainz"
+            >
+                <div class="link">
+                    <Icon name="simple-icons:musicbrainz" />
+                </div>
+            </a>
         </div>
-      </a>
-    </div>
-    <div class="cover">
-      <Image draggable="false" alt="" src={img} quality="high" />
-    </div>
-  </main>
+        <div class="cover">
+            <Image draggable="false" alt="" src={img} quality="high" />
+        </div>
+    </main>
 </Layout>
 
 <style lang="stylus">
@@ -81,7 +116,7 @@ main
 .inertia
   transition: color 0.2s ease
 
-#g11 
+#g11
   stroke-width 1
   transition all 0.3s
   stroke-dasharray 200

@@ -16,7 +16,7 @@ export default defineConfig({
           "envelope-open-fill",
           "telegram-logo-fill",
         ],
-        "simple-icons": ["signal"],
+        "simple-icons": ["signal", "musicbrainz"],
       },
     }),
   ],
