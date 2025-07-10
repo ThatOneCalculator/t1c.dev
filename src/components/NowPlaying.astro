@@ -1,0 +1,89 @@
+<div class="now-playing-container">
+    <h3>Now playing:</h3>
+    <div id="now-playing"></div>
+</div>
+
+<script>
+    function truncate(text: string, max: number) {
+        return (
+            text.substring(0, max - 1).trim() + (text.length > max ? "…" : "")
+        );
+    }
+
+    const nowPlayingElement = document.getElementById("now-playing");
+    if (nowPlayingElement) {
+        nowPlayingElement.style.display = "none !important";
+        const res = await fetch(
+            "https://api.listenbrainz.org/1/user/thatonecalculator/playing-now",
+        );
+        const resp = await res.json();
+
+        const title = resp?.payload?.listens[0].track_metadata;
+        nowPlayingElement.innerHTML += `<div class="track"><a class="title" href="https://listenbrainz.org/user/thatonecalculator/">${truncate(title.track_name, 30)}</a><a class="artist" href="https://listenbrainz.org/user/thatonecalculator/">${truncate(title.artist_name, 40)}</a></div>`;
+
+        const metadataRes = await fetch(
+            encodeURI(
+                `https://musicbrainz.org/ws/2/release/?query=recording:'${title.track_name} AND artist:'${title.artist_name}'&fmt=json`,
+            ),
+        );
+        const metadata = await metadataRes.json();
+        if (metadata?.releases[0]?.id) {
+            nowPlayingElement.innerHTML += `<img id="album-art"></img>`;
+            const albumArtElement = document.getElementById("album-art");
+            if (albumArtElement) {
+                albumArtElement.setAttribute(
+                    "src",
+                    `https://coverartarchive.org/release/${metadata.releases[0].id}/front-250`,
+                );
+            }
+        }
+    }
+</script>
+
+<style is:inline>
+    .now-playing-container {
+        color: white;
+        font-size: 1.2em;
+        margin-bottom: 1em;
+        background-color: rgba(255, 255, 255, 0.2);
+        background-filter: blur(10px);
+        padding: 0.5em;
+        font-weight: bold;
+        border-radius: 12px;
+        display: flex;
+        flex-direction: row;
+        place-items: center;
+        gap: 0.75em;
+
+        #now-playing {
+            display: flex;
+            flex-direction: row;
+            place-items: center;
+            gap: 0.75em;
+
+            #album-art {
+                height: 80px;
+                width: 80px;
+                border-radius: 14px;
+            }
+
+            .track {
+                display: flex;
+                flex-direction: column;
+
+                .title {
+                    /* color: green !important; */
+                }
+
+                .artist {
+                    font-size: 0.9em;
+                }
+            }
+        }
+
+        @media (max-width: 600px) {
+            flex-direction: column;
+            gap: 0;
+        }
+    }
+</style>

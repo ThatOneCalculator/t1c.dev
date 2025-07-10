@@ -4,6 +4,7 @@ import { Icon } from "astro-icon/components";
 import Bluesky from "../components/Bluesky.astro";
 import Github from "../components/Github.astro";
 import Logo from "../components/Logo.astro";
+import NowPlaying from "../components/NowPlaying.astro";
 import img from "../images/04-4K.png";
 import Layout from "../layouts/Layout.astro";
 ---
@@ -39,6 +40,7 @@ import Layout from "../layouts/Layout.astro";
                 >
             </p>
         </div>
+        <NowPlaying />
         <div class="links">
             <Bluesky />
             <Github />
@@ -88,15 +90,6 @@ import Layout from "../layouts/Layout.astro";
                             d="M202.63 96.5C194.13 88 189.44 76.72 189.44 64.7C189.44 58.67 190.61 52.84 192.85 47.45C195.07 42.07 198.37 37.13 202.61 32.9H202.63L219.65 15.86L203.77 0L186.77 17.02L186.75 17.04C169.19 34.55 140.67 34.55 123.15 17.02V17.04L106.11 0L90.26 15.86L107.28 32.9C124.82 50.41 124.82 78.94 107.3 96.5L90.26 113.54L106.11 129.4L123.15 112.36C131.63 103.86 142.93 99.2 154.95 99.2C166.97 99.2 178.25 103.89 186.75 112.39H186.77L203.77 129.41L219.65 113.55L202.63 96.53V96.51V96.5ZM168.34 78.08C159.59 76.33 150.24 76.33 141.52 78.08C143.29 69.24 143.29 60.09 141.5 51.24C150.36 53.03 159.49 53.03 168.34 51.26C167.47 55.63 167.02 60.12 167.02 64.69C167.02 69.26 167.47 73.71 168.34 78.08Z"
                             fill="currentColor"></path>
                     </svg>
-                </div>
-            </a>
-            <a
-                href="https://listenbrainz.org/user/thatonecalculator/"
-                target="_blank"
-                aria-label="ListenBrainz"
-            >
-                <div class="link">
-                    <Icon name="simple-icons:musicbrainz" />
                 </div>
             </a>
         </div>
