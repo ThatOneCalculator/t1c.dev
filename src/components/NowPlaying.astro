@@ -22,7 +22,7 @@
         const resp = await res.json();
 
         const title = resp?.payload?.listens[0].track_metadata;
-        nowPlayingElement.innerHTML += `<div class="track"><a class="title" href="https://listenbrainz.org/user/thatonecalculator/">${truncate(title.track_name, 30)}</a><a class="artist" href="https://listenbrainz.org/user/thatonecalculator/">${truncate(title.artist_name, 40)}</a></div>`;
+        nowPlayingElement.innerHTML += `<div class="track"><a class="title" href="https://listenbrainz.org/user/thatonecalculator/" target="_blank">${truncate(title.track_name, 30)}</a><a class="artist" href="https://listenbrainz.org/user/thatonecalculator/" target="_blank">${truncate(title.artist_name, 40)}</a></div>`;
 
         const metadataRes = await fetch(
             encodeURI(
