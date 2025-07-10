@@ -10,6 +10,9 @@
         );
     }
 
+    const containerElement = document.querySelector(
+        ".now-playing-container",
+    ) as HTMLDivElement;
     const nowPlayingElement = document.getElementById("now-playing");
     if (nowPlayingElement) {
         nowPlayingElement.style.display = "none !important";
@@ -37,6 +40,18 @@
                 );
             }
         }
+
+        if (containerElement) {
+            containerElement.style.opacity = "1";
+            containerElement.style.transform = "scale(1)";
+            containerElement.style["margin-bottom"] = "1em";
+            if (metadata?.releases[0]?.id) {
+                containerElement.style.padding = "0.5em";
+                containerElement.style["padding-left"] = "0.75em";
+            } else {
+                containerElement.style.padding = "0.75em";
+            }
+        }
     }
 </script>
 
@@ -44,16 +59,18 @@
     .now-playing-container {
         color: white;
         font-size: 1.2em;
-        margin-bottom: 1em;
         background-color: rgba(255, 255, 255, 0.2);
         background-filter: blur(10px);
-        padding: 0.5em;
         font-weight: bold;
         border-radius: 12px;
         display: flex;
         flex-direction: row;
         place-items: center;
         gap: 0.75em;
+        opacity: 0;
+        padding: 0;
+        transform: scale(0.8);
+        transition: all 0.5s cubic-bezier(0.68, -0.6, 0.32, 1.6);
 
         #now-playing {
             display: flex;
