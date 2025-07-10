@@ -31,13 +31,17 @@
         );
         const metadata = await metadataRes.json();
         if (metadata?.releases[0]?.id) {
-            nowPlayingElement.innerHTML += `<img id="album-art"></img>`;
-            const albumArtElement = document.getElementById("album-art");
-            if (albumArtElement) {
-                albumArtElement.setAttribute(
-                    "src",
-                    `https://coverartarchive.org/release/${metadata.releases[0].id}/front-250`,
-                );
+            const imageUrl = `https://coverartarchive.org/release/${metadata.releases[0].id}/front-250`;
+
+            const http = new XMLHttpRequest();
+            http.open("HEAD", imageUrl, false);
+            http.send();
+            if (http.status !== 404) {
+                nowPlayingElement.innerHTML += `<img id="album-art"></img>`;
+                const albumArtElement = document.getElementById("album-art");
+                if (albumArtElement) {
+                    albumArtElement.setAttribute("src", imageUrl);
+                }
             }
         }
 
