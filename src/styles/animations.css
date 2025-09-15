@@ -1,12 +1,3 @@
-@keyframes scroll {
-    from {
-        transform: translate(0px, 0px);
-    }
-    to {
-        transform: translate(-150px, -150px);
-    }
-}
-
 @keyframes dashText {
     from {
         stroke-dashoffset: 0;

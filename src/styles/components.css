@@ -79,14 +79,13 @@ a {
 }
 .cover {
     position: fixed;
-    height: 100%;
-    transform: translateY(-500px);
     filter: blur(10px);
-    size: cover;
-    animation: scroll 10s infinite ease-in-out alternate;
+    object-fit: cover;
+    animation: scrollPos 10s infinite ease-in-out;
     z-index: -10;
 }
 .cover img {
     user-select: none;
+    object-fit: cover;
     -webkit-user-select: none;
 }

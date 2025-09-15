@@ -19,8 +19,7 @@
     "@iconify-json/ph": "^1.2.1",
     "@iconify-json/simple-icons": "^1.2.26",
     "astro-icon": "1.1.2",
-    "sharp": "0.33.5",
-    "stylus": "^0.64.0"
+    "sharp": "0.33.5"
   },
   "trustedDependencies": [
     "sharp"

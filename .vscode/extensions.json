@@ -1,8 +1,4 @@
 {
-  "recommendations": [
-    "astro-build.astro-vscode",
-    "unifiedjs.vscode-mdx",
-    "sysoev.language-stylus"
-  ],
+  "recommendations": ["astro-build.astro-vscode", "unifiedjs.vscode-mdx"],
   "unwantedRecommendations": []
 }
