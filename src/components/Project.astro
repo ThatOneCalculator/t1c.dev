@@ -2,7 +2,7 @@
 import { Image } from "astro:assets";
 import { getEntry, render } from "astro:content";
 
-const { title, description, icon, banner, video, videoScroll, entry } = Astro.props;
+const { title, description, chips, icon, banner, video, videoScroll, entry } = Astro.props;
 
 if (entry) {
   const theEntry = await getEntry("projects", entry);
@@ -52,6 +52,13 @@ if (entry) {
             <h2>{title}</h2>
         </div>
         <p>{description}</p>
+        { chips && (
+            <div class="chips">
+                {chips.map((chip: string) => (
+                    <span class="chip">{chip}</span>
+                ))}
+            </div>
+        )}
     </div>
 </div>
 
@@ -100,7 +107,23 @@ if (entry) {
                 align-items: center;
                 gap: 0.75em;
             }
+
+            .chips {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 0.25em;
+                margin-bottom: 0.5em;
+
+                .chip {
+                    border-radius: 99px;
+                    font-size: 0.8em;
+                    padding: 0.2em 0.5em;
+                    backdrop-filter: blur(10px) brightness(0.4);
+                    background-color: rgba(255, 255, 255, 0.1);
+                }
+            }
         }
+
 
         .icon {
             border-radius: 15%;
