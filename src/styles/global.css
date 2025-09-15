@@ -2,16 +2,11 @@
 @import "components.css";
 
 html {
-    overflow: hidden;
+    overflow-x: hidden;
     background-color: #1f1d2e;
     color: #f8f6f2;
 }
 
-@media (max-height: 768px) {
-    html {
-        overflow: auto;
-    }
-}
 @media (max-width: 768px) {
     html {
         margin-bottom: 10rem;
