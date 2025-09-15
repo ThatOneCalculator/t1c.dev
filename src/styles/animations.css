@@ -1,0 +1,27 @@
+@keyframes scroll {
+    from {
+        transform: translate(0px, 0px);
+    }
+    to {
+        transform: translate(-150px, -150px);
+    }
+}
+
+@keyframes dashText {
+    from {
+        stroke-dashoffset: 0;
+    }
+    to {
+        stroke-dashoffset: 400;
+    }
+}
+
+@keyframes scrollPos {
+    0% {
+        object-position: 0% 0%;
+    }
+
+    50% {
+        object-position: 0% 100%;
+    }
+}

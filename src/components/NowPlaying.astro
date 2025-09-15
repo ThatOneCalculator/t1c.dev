@@ -5,23 +5,31 @@
 
 <script>
     function truncate(text: string, max: number) {
+        if (!text) return "";
         return (
             text.substring(0, max - 1).trim() + (text.length > max ? "…" : "")
         );
     }
 
-    const containerElement = document.querySelector(
-        ".now-playing-container",
-    ) as HTMLDivElement;
-    const nowPlayingElement = document.getElementById("now-playing");
-    if (nowPlayingElement) {
-        nowPlayingElement.style.display = "none !important";
+    const loadSong = async (reInit: boolean = false) => {
+        const containerElement = document.querySelector(
+            ".now-playing-container",
+        ) as HTMLDivElement;
+        const nowPlayingElement = document.getElementById("now-playing");
+        if (!nowPlayingElement) return;
+        if (reInit) {
+            nowPlayingElement.style.display = "none !important";
+        } else {
+            nowPlayingElement.innerHTML = "";
+        }
         const res = await fetch(
             "https://api.listenbrainz.org/1/user/thatonecalculator/playing-now",
         );
         const resp = await res.json();
 
-        const title = resp?.payload?.listens[0].track_metadata;
+        const title = resp?.payload?.listens[0]?.track_metadata;
+        if (!title) return;
+
         nowPlayingElement.innerHTML += `<div class="track"><a class="title" href="https://listenbrainz.org/user/thatonecalculator/" target="_blank">${truncate(title.track_name, 30)}</a><a class="artist" href="https://listenbrainz.org/user/thatonecalculator/" target="_blank">${truncate(title.artist_name, 40)}</a></div>`;
 
         const metadataRes = await fetch(
@@ -48,15 +56,23 @@
         if (containerElement) {
             containerElement.style.opacity = "1";
             containerElement.style.transform = "scale(1)";
+            // @ts-ignore
             containerElement.style["margin-bottom"] = "1.5em";
             if (metadata?.releases[0]?.id) {
                 containerElement.style.padding = "0.5em";
+                // @ts-ignore
                 containerElement.style["padding-left"] = "0.75em";
             } else {
                 containerElement.style.padding = "0.75em";
             }
         }
-    }
+    };
+
+    document.addEventListener("astro:page-load", () => loadSong());
+
+    setInterval(async () => {
+        await loadSong(true);
+    }, 60000);
 </script>
 
 <style is:inline>

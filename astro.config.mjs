@@ -13,6 +13,7 @@ export default defineConfig({
           "hand-fist-bold",
           "cursor-text-bold",
           "arrow-left-bold",
+          "book-open-text-bold",
           "envelope-open-fill",
           "telegram-logo-fill",
         ],

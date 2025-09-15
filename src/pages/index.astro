@@ -5,7 +5,11 @@ import Bluesky from "../components/Bluesky.astro";
 import Github from "../components/Github.astro";
 import Logo from "../components/Logo.astro";
 import NowPlaying from "../components/NowPlaying.astro";
+import Project from "../components/Project.astro";
 import img from "../images/04-4K.png";
+import audbLogo from "../images/audb-logo.png";
+import firefishLogo from "../images/firefish-logo.png";
+import inertiaLogo from "../images/inertia-logo.png";
 import Layout from "../layouts/Layout.astro";
 ---
 
@@ -17,8 +21,8 @@ import Layout from "../layouts/Layout.astro";
         </div>
         <div class="textBlock">
             <p style="font-size: 1.5rem; min-width: 60vw">
-                I make cool stuff on the Internet! Sometimes I write about it if
-                I remember to. Cofounder and CTO of
+                I make cool stuff on the Internet!<br />Sometimes I write about
+                it if I remember to. <!--Cofounder and CTO of
                 <a
                     href="https://inertia.social"
                     target="_blank"
@@ -41,7 +45,7 @@ import Layout from "../layouts/Layout.astro";
                             fill="#00F29C"></path>
                     </svg>
                     Inertia.</a
-                >
+                >-->
             </p>
         </div>
         <NowPlaying />
@@ -58,44 +62,34 @@ import Layout from "../layouts/Layout.astro";
                     <Icon name="simple-icons:signal" />
                 </div>
             </a>
-            <!-- a
-        href="https://t.me/kainoa_k"
-        aria-label="Telegram"
-        style="margin-left: 0.2em"
-      >
-        <div class="link">
-          <Icon name="ph:telegram-logo-fill" />
-        </div>
-      </a>  -->
             <a href="mailto:kainoa@t1c.dev" target="_blank" aria-label="Email">
                 <div class="link">
                     <Icon name="ph:envelope-open-fill" />
                 </div>
             </a>
-            <a
-                href="https://beta.inertia.social/@t1c"
-                target="_blank"
-                aria-label="Inertia"
-            >
-                <div class="link">
-                    <svg
-                        width="42"
-                        height="42"
-                        viewBox="0 0 220 170"
-                        fill="none"
-                        xmlns="http://www.w3.org/2000/svg"
-                        id="g11"
-                        style="stroke-linecap:round;stroke-linejoin:round;stroke:#F8F6F2;stroke-linecap:round;transform:translateY(0.1em)"
-                    >
-                        <path
-                            d="M100.41 53.48C75.61 53.48 55.42 33.3 55.42 8.48999H32.99C32.99 25.76 39.52 41.52 50.24 53.48H0.0100098V75.91H50.22C39.52 87.84 33 103.63 33 120.9H55.43C55.43 96.1 75.61 75.91 100.42 75.91V53.48H100.41Z"
-                            fill="currentColor"></path>
-                        <path
-                            d="M202.63 96.5C194.13 88 189.44 76.72 189.44 64.7C189.44 58.67 190.61 52.84 192.85 47.45C195.07 42.07 198.37 37.13 202.61 32.9H202.63L219.65 15.86L203.77 0L186.77 17.02L186.75 17.04C169.19 34.55 140.67 34.55 123.15 17.02V17.04L106.11 0L90.26 15.86L107.28 32.9C124.82 50.41 124.82 78.94 107.3 96.5L90.26 113.54L106.11 129.4L123.15 112.36C131.63 103.86 142.93 99.2 154.95 99.2C166.97 99.2 178.25 103.89 186.75 112.39H186.77L203.77 129.41L219.65 113.55L202.63 96.53V96.51V96.5ZM168.34 78.08C159.59 76.33 150.24 76.33 141.52 78.08C143.29 69.24 143.29 60.09 141.5 51.24C150.36 53.03 159.49 53.03 168.34 51.26C167.47 55.63 167.02 60.12 167.02 64.69C167.02 69.26 167.47 73.71 168.34 78.08Z"
-                            fill="currentColor"></path>
-                    </svg>
-                </div>
-            </a>
+        </div>
+        <h2>Big stuff I've done</h2>
+        <div class="projects">
+            <Project
+                title="Inertia Social"
+                description="Social prediction market - Cofounder & CTO"
+                icon={inertiaLogo}
+                entry="inertia"
+                video="/inertia.webm"
+                videoScroll
+            />
+            <Project
+                title="Firefish"
+                description="Decentralized social media platform - Founder"
+                icon={firefishLogo}
+                video="/firefish.webm"
+            />
+            <Project
+                title="Among Us Dumpy Bot"
+                description="Meme-focused Discord bot - Cofounder"
+                icon={audbLogo}
+                video="/audb.webm"
+            />
         </div>
         <div class="cover">
             <Image draggable="false" alt="" src={img} quality="high" />
@@ -103,26 +97,41 @@ import Layout from "../layouts/Layout.astro";
     </main>
 </Layout>
 
-<style lang="stylus">
-main
-    display flex
-    flex-direction column
-    align-items center
-    justify-content center
+<style lang="css">
+    main {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+    .inertia {
+        transition: color 0.2s ease;
+    }
+    #g11 {
+        stroke-width: 1;
+        transition: all 0.3s;
+        stroke-dasharray: 200;
+        animation: dashText 5s cubic-bezier(0.45, 0, 0.55, 1) infinite forwards;
+    }
+    .inertia:hover {
+        color: #00f29e;
+    }
+    .inertia:hover #g11 {
+        stroke-width: 13;
+        scale: 1.3;
+        transition: stroke-width 0.3s;
+    }
+    .projects {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        grid-auto-rows: 200px;
 
-.inertia
-  transition: color 0.2s ease
+        @media (max-width: 900px) {
+            grid-template-columns: repeat(2, 1fr);
+        }
 
-#g11
-  stroke-width 1
-  transition all 0.3s
-  stroke-dasharray 200
-  animation dashText 5s cubic-bezier(0.45, 0, 0.55, 1) infinite forwards
-
-.inertia:hover
-  color #00f29e
-  #g11
-    stroke-width 13
-    scale 1.3
-    transition stroke-width 0.3s
+        @media (max-width: 600px) {
+            grid-template-columns: repeat(1, 1fr);
+        }
+    }
 </style>

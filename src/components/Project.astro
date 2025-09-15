@@ -1,0 +1,123 @@
+---
+import { Image } from "astro:assets";
+import { getEntry, render } from "astro:content";
+
+const { title, description, icon, banner, video, videoScroll, entry } = Astro.props;
+
+if (entry) {
+  const theEntry = await getEntry("projects", entry);
+  if (!entry) {
+      throw new Error("Could not find project entry");
+  }
+  const { Content, headings, remarkPluginFrontmatter } = await render(theEntry);
+}
+---
+
+<div class="project readable">
+    {
+        banner && (
+            <Image
+                src={banner}
+                class="banner"
+                alt={`${title} banner`}
+                height="120"
+                width="80"
+            />
+        )
+    }
+    {
+        video && (
+            <video
+                muted
+                autoplay
+                loop
+                class="banner"
+                style={videoScroll && 'animation: scrollPos 20s infinite linear;'}
+                height="120"
+                width="80"
+            >
+                <source src={video} type="video/webm"></source>
+            </video>
+        )
+    }
+    <div class="content">
+        <div class="content-title">
+            <Image
+                src={icon}
+                class="icon"
+                alt={`${title} icon`}
+                height="60"
+                width="60"
+            />
+            <h2>{title}</h2>
+        </div>
+        <p>{description}</p>
+    </div>
+</div>
+
+<style lang="css">
+    .project {
+        color: white;
+        font-size: 1.2em;
+        background-color: rgba(255, 255, 255, 0.2);
+        background-filter: blur(10px);
+        font-weight: bold;
+        border-radius: 12px;
+        display: flex;
+        flex-direction: row;
+        place-items: center;
+        gap: 0.75em;
+        padding: 0.5em;
+        transform: scale(0.8);
+        will-change:
+            opacity, padding, margin, transform, box-shadow, background-color;
+        transition: all 0.45s cubic-bezier(0.68, -0.6, 0.32, 1.6);
+        box-shadow: 0 0 10px rgba(255, 255, 255, 0.15);
+
+        &:hover {
+            transform: translate3d(0, 0, 0.3px) !important;
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.35);
+            background-color: rgba(255, 255, 255, 0.25);
+
+            .content-title {
+                transform: translateX(-75px);
+            }
+
+            .banner {
+                filter: none !important;
+            }
+        }
+
+
+        .content {
+            overflow-x: clip;
+            display: flex;
+            flex-direction: column;
+
+            .content-title {
+                transition: transform 0.45s cubic-bezier(0.68, -0.6, 0.32, 1.6);
+                display: flex;
+                align-items: center;
+                gap: 0.75em;
+            }
+        }
+
+        .icon {
+            border-radius: 15%;
+        }
+
+        .banner {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: -1;
+            border-radius: 12px;
+            object-position: 0% 0%;
+            filter: brightness(0.8) blur(2px);
+            transition: filter 0.2s ease;
+        }
+    }
+</style>

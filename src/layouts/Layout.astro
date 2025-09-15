@@ -1,8 +1,8 @@
 ---
-import { ViewTransitions } from "astro:transitions";
+import { ClientRouter } from "astro:transitions";
 import Cursor from "../components/Cursor.astro";
 
-import "../styles/global.styl";
+import "../styles/global.css";
 
 import "@fontsource/atkinson-hyperlegible/400.css";
 import "@fontsource/atkinson-hyperlegible/700.css";
@@ -36,7 +36,7 @@ const ogDescription = "Kainoa Kanter's Portfolio";
         <meta name="twitter:site" content="@t1c_dev" />
         <meta name="twitter:creator" content="@t1c_dev" />
         <title>{Astro.props.title}</title>
-        <ViewTransitions />
+        <ClientRouter />
         <!-- <script>
       import Lenis from "@studio-freight/lenis";
 

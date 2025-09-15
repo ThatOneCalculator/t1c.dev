@@ -1,0 +1,22 @@
+@import "animations.css";
+@import "components.css";
+
+html {
+    overflow: hidden;
+    background-color: #1f1d2e;
+    color: #f8f6f2;
+}
+
+@media (max-height: 768px) {
+    html {
+        overflow: auto;
+    }
+}
+@media (max-width: 768px) {
+    html {
+        margin-bottom: 10rem;
+    }
+}
+body main {
+    font-family: "Atkinson Hyperlegible", serif;
+}
