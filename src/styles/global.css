@@ -6,6 +6,7 @@ html {
     background-color: #1f1d2e;
     color: #f8f6f2;
     margin-bottom: 3rem;
+    scrollbar-width: thin;
 }
 
 @media (max-width: 768px) {
@@ -15,4 +16,5 @@ html {
 }
 body main {
     font-family: "Atkinson Hyperlegible", "WDXL Lubrifont JP N", serif;
+    scrollbar-width: thin;
 }
