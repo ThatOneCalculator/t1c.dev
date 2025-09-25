@@ -1,89 +1,123 @@
-<div class="now-playing-container">
+<div id="now-playing-container">
     <h3>Now playing:</h3>
-    <div id="now-playing"></div>
+    <div id="now-playing">
+        <div id="track">
+            <a
+                id="title"
+                href="https://listenbrainz.org/user/thatonecalculator/"
+                target="_blank"
+            >
+            </a>
+            <a
+                id="artist"
+                href="https://listenbrainz.org/user/thatonecalculator/"
+                target="_blank"
+            >
+            </a>
+        </div>
+        <img id="album-art" />
+    </div>
 </div>
 
 <script>
-    function truncate(text: string, max: number) {
-        if (!text) return "";
-        return (
-            text.substring(0, max - 1).trim() + (text.length > max ? "…" : "")
+    let worker: Worker | null = null;
+
+    const updateUI = (songData: any) => {
+        const containerElement = document.getElementById(
+            "now-playing-container",
         );
-    }
+        const titleElement = document.getElementById("title");
+        const artistElement = document.getElementById("artist");
+        const albumArtElement = document.getElementById(
+            "album-art",
+        ) as HTMLImageElement;
 
-    const loadSong = async (reInit: boolean = false) => {
-        const containerElement = document.querySelector(
-            ".now-playing-container",
-        ) as HTMLDivElement;
-        const nowPlayingElement = document.getElementById("now-playing");
-        if (!nowPlayingElement) return;
-        if (reInit) {
-            nowPlayingElement.style.display = "none !important";
-        } else {
-            nowPlayingElement.innerHTML = "";
-        }
-        const res = await fetch(
-            "https://api.listenbrainz.org/1/user/thatonecalculator/playing-now",
-        );
-        const resp = await res.json();
-
-        const title = resp?.payload?.listens[0]?.track_metadata;
-        if (!title) return;
-
-        nowPlayingElement.innerHTML += `<div class="track"><a class="title" href="https://listenbrainz.org/user/thatonecalculator/" target="_blank">${truncate(title.track_name, 30)}</a><a class="artist" href="https://listenbrainz.org/user/thatonecalculator/" target="_blank">${truncate(title.artist_name, 40)}</a></div>`;
-
-        const metadataRes = await fetch(
-            encodeURI(
-                `https://musicbrainz.org/ws/2/release/?query=recording:'${title.track_name} AND artist:'${title.artist_name}'&fmt=json`,
-            ),
-        );
-        const metadata = await metadataRes.json();
-        if (metadata?.releases[0]?.id) {
-            const imageUrl = `https://coverartarchive.org/release/${metadata.releases[0].id}/front-250`;
-
-            const http = new XMLHttpRequest();
-            http.open("HEAD", imageUrl, false);
-            http.send();
-            if (http.status !== 404) {
-                nowPlayingElement.innerHTML += `<img id="album-art"></img>`;
-                const albumArtElement = document.getElementById("album-art");
-                if (albumArtElement) {
-                    albumArtElement.setAttribute("src", imageUrl);
-                }
-            }
+        if (
+            !containerElement ||
+            !titleElement ||
+            !artistElement ||
+            !albumArtElement
+        ) {
+            return;
         }
 
-        if (containerElement) {
-            containerElement.style.opacity = "1";
-            containerElement.style.transform = "scale(1)";
+        if (songData.error) {
+            containerElement.style.display = "none";
+            return;
+        }
+
+        titleElement.innerText = songData.title;
+        artistElement.innerText = songData.artist;
+        containerElement.style.display = "flex";
+        albumArtElement.setAttribute("src", "");
+        albumArtElement.style.display = "none";
+
+        if (songData.albumArt) {
+            albumArtElement.setAttribute("src", songData.albumArt);
+            albumArtElement.style.display = "block";
+        }
+
+        containerElement.style.opacity = "1";
+        containerElement.style.transform = "scale(1)";
+        // @ts-ignore
+        containerElement.style["margin-bottom"] = "1.5em";
+
+        if (songData.hasAlbumArt) {
+            containerElement.style.padding = "0.5em";
             // @ts-ignore
-            containerElement.style["margin-bottom"] = "1.5em";
-            if (metadata?.releases[0]?.id) {
-                containerElement.style.padding = "0.5em";
-                // @ts-ignore
-                containerElement.style["padding-left"] = "0.75em";
-            } else {
-                containerElement.style.padding = "0.75em";
-            }
+            containerElement.style["padding-left"] = "0.75em";
+        } else {
+            containerElement.style.padding = "0.75em";
         }
     };
 
-    document.addEventListener("astro:page-load", () => loadSong());
+    const initializeWorker = () => {
+        if (worker) {
+            worker.terminate();
+        }
 
-    setInterval(async () => {
-        await loadSong(true);
-    }, 60000);
+        worker = new Worker("/workers/music-worker.js");
+
+        worker.addEventListener("message", (event) => {
+            if (event.data.type === "SONG_DATA") {
+                updateUI(event.data.data);
+            }
+        });
+
+        worker.addEventListener("error", (error) => {
+            console.error("Worker error:", error);
+        });
+    };
+
+    const requestSongUpdate = () => {
+        if (worker) {
+            worker.postMessage({ type: "FETCH_SONG" });
+        }
+    };
+
+    document.addEventListener("astro:page-load", () => {
+        initializeWorker();
+    });
+
+    document.addEventListener("astro:before-preparation", () => {
+        if (worker) {
+            worker.terminate();
+            worker = null;
+        }
+    });
+
+    setInterval(requestSongUpdate, 60000);
 </script>
 
 <style is:inline>
-    .now-playing-container {
+    #now-playing-container {
+        display: none;
         color: white;
         font-size: 1.2em;
         background-color: rgba(255, 255, 255, 0.2);
         background-filter: blur(10px);
         font-weight: bold;
         border-radius: 12px;
-        display: flex;
         flex-direction: row;
         place-items: center;
         gap: 0.75em;
@@ -113,17 +147,18 @@
                 height: 80px;
                 width: 80px;
                 border-radius: 14px;
+                display: none;
             }
 
-            .track {
+            #track {
                 display: flex;
                 flex-direction: column;
 
-                .title {
+                #title {
                     /* color: green !important; */
                 }
 
-                .artist {
+                #artist {
                     font-size: 0.9em;
                 }
             }

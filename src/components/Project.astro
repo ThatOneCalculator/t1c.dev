@@ -1,16 +1,18 @@
 ---
 import { Image } from "astro:assets";
-import { getEntry, render } from "astro:content";
 
-const { title, description, chips, icon, banner, video, videoScroll, entry } = Astro.props;
+// import { getEntry, render } from "astro:content";
 
-if (entry) {
-  const theEntry = await getEntry("projects", entry);
-  if (!entry) {
-      throw new Error("Could not find project entry");
-  }
-  const { Content, headings, remarkPluginFrontmatter } = await render(theEntry);
-}
+const { title, description, chips, icon, banner, video, videoScroll, entry } =
+	Astro.props;
+
+// if (entry) {
+//   const theEntry = await getEntry("projects", entry);
+//   if (!entry) {
+//       throw new Error("Could not find project entry");
+//   }
+//   const { Content, headings, remarkPluginFrontmatter } = await render(theEntry);
+// }
 ---
 
 <div class="project readable">
@@ -78,13 +80,14 @@ if (entry) {
         transform: scale(0.8);
         will-change:
             opacity, padding, margin, transform, box-shadow, background-color;
-        transition: all 0.45s cubic-bezier(0.68, -0.6, 0.32, 1.6);
+        transition: all 0.3s cubic-bezier(0.68, -0.6, 0.32, 1.6);
         box-shadow: 0 0 10px rgba(255, 255, 255, 0.15);
 
         &:hover {
             transform: translate3d(0, 0, 0.3px) !important;
             box-shadow: 0 0 10px rgba(255, 255, 255, 0.35);
             background-color: rgba(255, 255, 255, 0.25);
+            opacity: 0.7;
 
             .content-title {
                 transform: translateX(-75px);

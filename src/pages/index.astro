@@ -49,6 +49,7 @@ import Layout from "../layouts/Layout.astro";
             </p>
         </div>
         <NowPlaying />
+
         <div class="links">
             <Bluesky />
             <Github />
@@ -68,7 +69,10 @@ import Layout from "../layouts/Layout.astro";
                 </div>
             </a>
         </div>
-        <h2>Big stuff I've done</h2>
+
+        <div class="textBlock">
+            <h2>Big-ish projects I've worked on</h2>
+        </div>
         <div class="projects">
             <Project
                 title="Inertia Social"
@@ -94,6 +98,13 @@ import Layout from "../layouts/Layout.astro";
                 video="/audb.webm"
             />
         </div>
+
+        <!-- <h2>Technologies I use & find cool</h2>
+        <div class="technologies">
+            <Icon name="vscode-icons:file-type-vue" />
+        </div> -->
+
+        <!-- Cover -->
         <div class="cover">
             <Image draggable="false" alt="" src={img} quality="high" />
         </div>

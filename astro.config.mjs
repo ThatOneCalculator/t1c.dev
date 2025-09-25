@@ -18,6 +18,7 @@ export default defineConfig({
           "telegram-logo-fill",
         ],
         "simple-icons": ["signal", "musicbrainz"],
+        "vscode-icons": ["file-type-vue"],
       },
     }),
   ],

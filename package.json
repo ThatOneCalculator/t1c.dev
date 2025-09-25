@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "@fontsource/atkinson-hyperlegible": "^5.1.0",
+    "@fontsource/wdxl-lubrifont-jp-n": "^5.2.2",
     "@studio-freight/lenis": "^1.0.42",
     "astro": "5.13.7",
     "party-js": "^2.2.0"
@@ -18,6 +19,7 @@
   "devDependencies": {
     "@iconify-json/ph": "^1.2.1",
     "@iconify-json/simple-icons": "^1.2.26",
+    "@iconify-json/vscode-icons": "^1.2.30",
     "astro-icon": "1.1.2",
     "sharp": "0.33.5"
   },
