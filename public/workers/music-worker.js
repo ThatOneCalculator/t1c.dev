@@ -15,42 +15,24 @@ async function checkImageExists(url) {
 async function fetchSongData() {
   try {
     const res = await fetch(
-      "https://api.listenbrainz.org/1/user/thatonecalculator/playing-now",
+      "https://api.rocksky.app/xrpc/app.rocksky.actor.getActorScrobbles?limit=1&offset=0&did=t1c.dev",
     );
     const resp = await res.json();
 
-    const title = resp?.payload?.listens[0]?.track_metadata;
-    if (!title) {
+    const song = resp?.scrobbles[0];
+    if (!song) {
       return { error: "No song playing" };
+    }
+    if (Date.now() - new Date(song.createdAt).getTime() > 10 * 60 * 1000) {
+      return { error: "Last scrobble over 10 mins ago, ignoring" }
     }
 
     const songData = {
-      title: truncate(title.track_name, 30),
-      artist: truncate(title.artist_name, 40),
-      albumArt: "",
+      title: truncate(song.title, 30),
+      artist: truncate(song.artist, 40),
+      albumArt: song.albumArt,
     };
-
-    const metadataRes = await fetch(
-      encodeURI(
-        `https://musicbrainz.org/ws/2/release/?query=recording:'${title.track_name}' AND artist:'${title.artist_name}'&fmt=json`,
-      ),
-    );
-    const metadata = await metadataRes.json();
-
-    if (metadata?.releases[0]?.id) {
-      const imageUrl = `https://coverartarchive.org/release/${metadata.releases[0].id}/front-250`;
-      const imageExists = await checkImageExists(imageUrl);
-
-      if (imageExists) {
-        songData.albumArt = imageUrl;
-        songData.hasAlbumArt = true;
-      } else {
-        songData.hasAlbumArt = false;
-      }
-    } else {
-      songData.hasAlbumArt = false;
-    }
-
+    
     return songData;
   } catch (error) {
     return { error: error.message };
