@@ -36,6 +36,8 @@ import { Icon } from "astro-icon/components";
         const scaleX = hoverScale * speedScaleX || 1;
         const scaleY = hoverScale * speedScaleY || 1;
 
+        if ([scaleX, scaleY].includes(Infinity)) return;
+
         update(x, y, scaleX, scaleY);
         lastX = x;
         lastY = y;

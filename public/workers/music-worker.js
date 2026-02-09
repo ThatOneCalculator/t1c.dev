@@ -23,8 +23,8 @@ async function fetchSongData() {
     if (!song) {
       return { error: "No song playing" };
     }
-    if (Date.now() - new Date(song.createdAt).getTime() > 10 * 60 * 1000) {
-      return { error: "Last scrobble over 10 mins ago, ignoring" }
+    if (Date.now() - new Date(`${song.createdAt}Z`).getTime() > 10 * 60 * 1000) {
+      return { error: "Last scrobble over 10 mins ago, ignoring" };
     }
 
     const songData = {
